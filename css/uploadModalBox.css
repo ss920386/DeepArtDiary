@@ -1,0 +1,89 @@
+textarea {
+    width: 80%;
+    height: 250px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    resize: none;
+    margin-top: 50px;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.inputfile:focus + .uploadLabel {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.uploadLabel {
+	padding: 10px 10px 10px 10px;
+
+	font-size: 40%;
+    font-weight: 700;
+    color: #5c5353;
+    
+    background-color: #a9a9a9;
+    border: 2px solid #a9a9a9;
+    border-radius: 4px;
+
+    cursor: pointer; /* "hand" cursor */
+
+}
+
+#nextBtn{
+    background-color: #5c5353;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-decoration: none;
+    margin: 30px 15px;
+    cursor: pointer;
+    border: 1px solid #696969;
+    border-radius: 4px;
+    font-size: 150%;
+    text-align:center; 
+    vertical-align:middle;
+    width:20%;
+}
+
+#subBtn{
+    background-color: #5c5353;
+    border: none;
+    color: white;
+    padding: 10px 10px;
+    text-decoration: none;
+    margin: 30px 15px;
+    cursor: pointer;
+    border: 1px solid #696969;
+    border-radius: 4px;
+    font-size: 150%;
+    text-align:center; 
+    vertical-align:middle;
+    width:50%;
+}
+
+/* The Modal (background) */
+#diaryModal_content{
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%; /* Could be more or less, depending on screen size */
+}
+
+#picModal_content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Could be more or less, depending on screen size */
+}
