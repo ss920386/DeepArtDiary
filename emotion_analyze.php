@@ -36,11 +36,18 @@
       //Decode the data
       $decoded = json_decode($emotion_result);
 
-      $sadness = $decoded->emotion->document->emotion->sadness;
-      $joy = $decoded->emotion->document->emotion->joy;
-      $fear = $decoded->emotion->document->emotion->fear;
-      $disgust = $decoded->emotion->document->emotion->disgust;
-      $anger = $decoded->emotion->document->emotion->anger;
+      //$sadness = $decoded->emotion->document->emotion->sadness;
+      //$joy = $decoded->emotion->document->emotion->joy;
+      //$fear = $decoded->emotion->document->emotion->fear;
+      //$disgust = $decoded->emotion->document->emotion->disgust;
+      //$anger = $decoded->emotion->document->emotion->anger;
+      //
+      $emotion = $decoded->emotion->document->emotion;
+      $sadness = $emotion->sadness;
+      $joy = $emotion->joy;
+      $fear = $emotion->fear;
+      $disgust = $emotion->disgust;
+      $anger = $emotion->anger;
       //echo "Sadness: ". $sadness ."";
       //echo "Joy: ". $joy ."";
       //echo "Fear:". $fear ."";
@@ -49,22 +56,24 @@
 
       //Begin to do style transfer
       $analyze_result = max($sadness,$joy,$fear,$disgust,$anger);
-      //echo $analyze_result;
+      //$result_score = sprintf("%f",$analyze_result);
       if($analyze_result==$sadness){
-        echo "Sadness";
+        echo "Sadness ";
       }
       if($analyze_result==$joy){
-        echo "Joy";
+        echo "Joy ";
       }
       if($analyze_result==$fear){
-        echo "Fear";
+        echo "Fear ";
       }
       if($analyze_result==$disgust){
-        echo "Disgust";
+        echo "Disgust ";
       }
       if($analyze_result==$anger){
-        echo "Anger";
+        echo "Anger ";
       }
+      
+      echo $analyze_result;
       
     }
 ?>

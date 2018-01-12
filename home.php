@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Home</title>
+<title>DeepArtDairy</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -10,6 +10,17 @@
 <link rel="stylesheet" type="text/css" href="css/home.css">
 <link rel="stylesheet" type="text/css" href="css/modelBox.css">
 <link rel="stylesheet" type="text/css" href="css/uploadModalBox.css">
+
+<style>
+.blurL1 {
+    -webkit-filter: blur(2px); /* Safari 6.0 - 9.0 */
+    filter: blur(2px);
+}
+.blurL2 {
+    -webkit-filter: blur(5px); /* Safari 6.0 - 9.0 */
+    filter: blur(5px);
+}
+</style>
 
 </head>
 <body>
@@ -27,11 +38,16 @@
             diary: $("#diary_text_area").val()
         },
         success: function(msg) {
-           document.getElementById("emo").value = msg;
+           var res = msg.split(" ");
+           document.getElementById("emo").value = res[0];
+           document.getElementById("emo_score").value = res[1];
+           console.log(document.getElementById("emo").value);
+           console.log(document.getElementById("emo_score").value = res[1]);
         }               
     });
     //document.getElementById('diaryModal_form').submit();
     
+    //defined in js/uploadModalBox.js
     ppopUp();
   }
 </script>
@@ -40,15 +56,15 @@
     var e =document.getElementById("emo").value;
     if(e==="Sadness"){
       console.log("Sadness Mode");
-      uploadImage("ed5fc005-1b90-11e7-afe2-06d95fe194ed");
+      uploadImage("ed83fea8-1b90-11e7-afe2-06d95fe194ed");
     }
     else if(e==="Joy"){
       console.log("Joy Mode");
-      uploadImage("ed90e183-1b90-11e7-afe2-06d95fe194ed");
+      uploadImage("c7985a74-1560-11e7-afe2-06d95fe194ed");
     }
     else if(e==="Fear"){
       console.log("Fear Mode");
-      uploadImage("edc63c6e-1b90-11e7-afe2-06d95fe194ed");
+      uploadImage("c79854ee-1560-11e7-afe2-06d95fe194ed");
     }
     else if(e==="Anger"){
       console.log("Anger Mode");
@@ -56,7 +72,7 @@
     }
     else if(e==="Disgust"){
       console.log("Disgust Mode");
-      uploadImage("dd87e344-e283-4c2f-8708-19c5f820eac3");
+      uploadImage("c7985817-1560-11e7-afe2-06d95fe194ed");
     }
   }
 </script>
@@ -64,10 +80,10 @@
 
   <?php
     //access DB
-    $db_host = "dbhome.cs.nctu.edu.tw";
-    $db_name = "yiting0424_cs_dream";
-    $db_user = "yiting0424_cs";
-    $db_password = "cscs";
+    $db_host = "localhost";
+    $db_name = "dream";
+    $db_user = "ca";
+    $db_password = "catcc2017";
     $dsn = "mysql:host=$db_host;dbname=$db_name";
     $db = new PDO($dsn, $db_user, $db_password);
   ?>
@@ -112,6 +128,7 @@
   <input type="hidden" name="final_new_url" id="n_url" value="">
   <input type="hidden" name="final_text" id="f_text" value="">
   <input type="hidden" name="emotion" id="emo" value="">
+  <input type="hidden" name="score" id="emo_score" value="">
 </form>
 
 <!-- The Modal for Diary upload -->
@@ -147,7 +164,7 @@
   <!-- Modal content -->
   <div class="modal-content">
     <span id="Modal_close" class="close">&times;</span>
-    <img id='new_pic' src='' style='width:100%;'>
+    <img id='new_pic' class="" src='' style='width:100%;'>
     <b><p><div id='timestamp'></div>&nbsp;&nbsp;
           <div id='diary_mood'></div></p></b>
     <p id='diary_content'></p>
@@ -157,57 +174,28 @@
 
 <!-- Photo Grid -->
 <div class="w3-row" id="myGrid" style="margin-bottom:128px">
-  <div class="w3-third">
     <?php
       //list others information
-        $pictures_sql = "SELECT * FROM pictures";
+        $pictures_sql = "SELECT * FROM pictures order by timestamp desc";
         $people_row = $db->query($pictures_sql);
         $i=0;
         while($pic = $people_row->fetchObject())
         {
-          if( $i %3 ==0 )
-          { 
-            echo "<img src='" . $pic->original_addr . "' style='width:100%;cursor: pointer;' onclick=\"popUp('" . $pic->new_addr . "','" . $pic->timestamp . "','" . $pic->diary_content . "','" . $pic->mood . "');\">";
-          }
-          $i=$i+1;
-        }
-    ?>
-  </div>
-
-  <div class="w3-third">
-    <?php
-      //list others information
-        $pictures_sql = "SELECT * FROM pictures";
-        $people_row = $db->query($pictures_sql);
-        $i=1;
-        while($pic = $people_row->fetchObject())
-        {
-          if( $i %3 ==2 )
-          { 
-            echo "<img src='" . $pic->original_addr . "' style='width:100%;cursor: pointer;' onclick=\"popUp('" . $pic->new_addr . "','" . $pic->timestamp . "','" . $pic->diary_content . "','" . $pic->mood . "');\">";
-          }
-          $i=$i+1;
-        }
-    ?>
-  </div>
-
-  <div class="w3-third">
-    <?php
-      //list others information
-        $pictures_sql = "SELECT * FROM pictures";
-        $people_row = $db->query($pictures_sql);
-        $i=1;
-        while($pic = $people_row->fetchObject())
-        {
-          if( $i %3 ==0 )
-          { 
-            echo "<img src='" . $pic->original_addr . "' style='width:100%;cursor: pointer;' onclick=\"popUp('" . $pic->new_addr . "','" . $pic->timestamp . "','" . $pic->diary_content . "','" . $pic->mood . "');\">";
-          }
+            if( $i %3 ==0 )
+            {
+                echo '<div class"w3-row">';
+            }      
+            echo '<div class="w3-third">';
+            echo "<img src='" . $pic->original_addr . "' style='width:100%;cursor: pointer;' onclick=\"popUp('" . $pic->new_addr . "','" . $pic->timestamp . "','" . $pic->diary_content . "','" . $pic->mood . "','" . $pic->score . "');\">";
+            echo "</div>";
+            if( $i %3 ==2 )
+            {
+                echo "</div>";
+            }      
           $i=$i+1;
         }
     ?>
 
-  </div>
 </div>
 
 <!-- End Page Content -->
