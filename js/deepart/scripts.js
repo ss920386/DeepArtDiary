@@ -6,9 +6,9 @@ var maxImageSize;
 var imgur_url;
 
 var deepArtEffectsClient = apigClientFactory.newClient({
-	apiKey: 'vqbG65WVXd1AyNBuqwUiV3Fjj6vhxWtj1kkrZgTY',
-	accessKey: 'AKIAJVAKJHW53ORDTMAA',
-    secretKey: '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'
+	apiKey: 'WYKFpELrss6sz6nyjpmLxowMk0HGW5w3I7JWCur3',
+	accessKey: 'AKIAJODRZKUUYVUDJSSA',
+    secretKey: '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'
 });
 
 /*$(document).ready(function(){
@@ -163,7 +163,8 @@ function imageReadyCheck() {
 		        	final_original_url: document.getElementById("o_url").value,
 		            final_new_url: document.getElementById("n_url").value,
 		            final_text: document.getElementById("f_text").value,
-		            emotion: document.getElementById("emo").value
+		            emotion: document.getElementById("emo").value,
+                score: document.getElementById("emo_score").value
 		        },
 		        success: function(msg) {
 		        	document.getElementById('diaryModal_form').submit();
